@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vocal Session Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: one narrow column of channel-strip sections, each headed by a console-style scribble strip */
+:root{
+  --bg:#eef0ee; --surface:#fbfcfb; --ink:#1c2422; --muted:#5b6662; --line:#cfd6d3;
+  --accent:#0f6b5c; --accent-ink:#ffffff; --strip:#1f2a27; --strip-ink:#e9efe9; --warn:#a2461a; --warn-bg:#fbeee6;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121816; --surface:#1a2220; --ink:#e3ebe7; --muted:#9aa8a2; --line:#2f3b37;
+  --accent:#4fbfa6; --accent-ink:#0d1513; --strip:#0b100f; --strip-ink:#d8e3dd; --warn:#f0a57c; --warn-bg:#2c1d15; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121816; --surface:#1a2220; --ink:#e3ebe7; --muted:#9aa8a2; --line:#2f3b37;
+  --accent:#4fbfa6; --accent-ink:#0d1513; --strip:#0b100f; --strip-ink:#d8e3dd; --warn:#f0a57c; --warn-bg:#2c1d15; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body)}
+.wrap{max-width:760px;margin:0 auto;padding-block:28px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+header h1{font:700 2.4rem/1 var(--display);letter-spacing:.01em;margin:0 0 8px;text-wrap:balance}
+.meta{font:500 .9rem/1.5 var(--mono);color:var(--ink)!important;margin:0 0 10px!important}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.eyebrow{font:500 .78rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+section{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.strip{background:var(--strip);color:var(--strip-ink);display:flex;align-items:baseline;gap:12px;padding:10px 16px}
+.strip .n{font:500 .8rem var(--mono);opacity:.7}
+.strip h2{font:600 1.35rem/1.1 var(--display);letter-spacing:.04em;text-transform:uppercase;margin:0}
+.body{padding:16px;display:flex;flex-direction:column;gap:16px}
+.intro{color:var(--muted);margin:0;max-width:65ch}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:4px;padding:10px 12px;font-weight:500}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.field>.lbl{font-weight:600;font-size:.95rem}
+.hint{color:var(--muted);font-size:.85rem;margin-top:-3px}
+input[type=text],textarea,select{width:100%;box-sizing:border-box;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:9px 10px}
+textarea{min-height:96px;resize:vertical}
+.mono input,.mono select{font-family:var(--mono);font-size:.9rem}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,.scale label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.unit{border:1px solid var(--line);border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.unit h3{margin:0;font:600 1.15rem var(--display);letter-spacing:.03em}
+.unit h3 small{font:400 .8rem var(--mono);color:var(--muted);margin-left:6px;letter-spacing:0}
+.checks{display:flex;flex-direction:column;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-weight:400}
+.checks input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent);flex:none}
+.scale{display:flex;gap:6px;flex-wrap:wrap}
+.scale label{position:relative}
+.scale input{position:absolute;opacity:0;inset:0}
+.scale span{display:inline-grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:4px;font:500 .95rem var(--mono);cursor:pointer;background:var(--bg)}
+.scale input:checked+span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.count{font:400 .8rem var(--mono);color:var(--muted);text-align:right}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:5}
+.bar-in{max-width:760px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:600 .95rem var(--body);border-radius:4px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.status{color:var(--muted);font-size:.85rem;flex:1 1 160px;min-width:0}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fallback{display:flex;flex-direction:column;gap:8px}
+.fallback textarea{min-height:220px;font:400 .85rem var(--mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap" style="padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))">
+  <header>
+    <div class="eyebrow">Vocal recording · evaluation</div>
+    <h1>Vocal Session Sheet</h1>
+    <p class="meta">Monday 2 November 2026 · 9:30 am · Classroom<br>Lecturer: Nahuel Berneri</p>
+    <p>Fill this in during and straight after your session. Justify every choice: why it suits this voice and this song, what you heard, and what you would change. Describing what you did is not enough.</p>
+    <p class="hint" style="margin-top:8px">Your answers stay on this device as a draft until you copy or download them. Nothing is sent anywhere.</p>
+  </header>
+  <div id="form"></div>
+</div>
+
+<div class="bar"><div class="bar-in" id="bar">
+  <button class="primary" id="copyBtn" type="button">Copy answers</button>
+  <button id="pdfBtn" type="button" hidden>Download PDF</button>
+  <button id="clearBtn" type="button">Clear</button>
+  <span class="status" id="status" aria-live="polite">Draft saved on this device</span>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const R5=['1','2','3','4','5'];
+const SRC=['Hardware (recorded in)','Plugin (mix)'];
+const S=[
+ {t:'Session details',f:[
+  {id:'group',l:'Group members and roles',h:'Engineer, assistant, producer, Pro Tools operator',k:'text'},
+  {id:'vocalist',l:'Vocalist name',k:'text'},
+  {id:'voice',l:"Vocalist's voice in your own words",h:'Range, power, brightness, sibilance, plosives, dynamics',k:'area'},
+  {id:'needs',l:'What the song needs from the vocal',h:'Intimate, aggressive, polished, vintage…',k:'area'}]},
+ {t:'Safety and setup',note:'The Coles 4038 is a passive ribbon. It goes only into the AMS Neve 1073 DPX, never the SSL or the Avalon, so phantom is controlled at the unit.',f:[
+  {id:'checks',l:'Tick each item before the vocalist starts singing',k:'checks',o:[
+   'Coles 4038 patched only into the Neve 1073 DPX, with that channel\'s 48V confirmed OFF before connecting',
+   '48V ON only for the U87; the RE20 does not need it',
+   'Pop filter in place and agreed singer-to-mic distance marked',
+   'Gain set on the loudest passage, peaks around −12 to −6 dBFS',
+   'Headphone mix checked by the vocalist before the first take',
+   'Signal path labelled on the patch sheet']},
+  {grid:1,f:[
+   {id:'p_mic',l:'Mic',k:'sel',o:['U87 Ai','Coles 4038','RE20']},
+   {id:'p_pre',l:'Preamp',k:'sel',o:['SSL Duality δelta','Neve 1073 DPX','Avalon VT-737sp']},
+   {id:'p_eq',l:'EQ',k:'text'},
+   {id:'p_comp',l:'Compressor(s)',k:'text'},
+   {id:'p_track',l:'Pro Tools track',k:'text'}]}]},
+ {t:'Microphone selection',intro:'All three mics record the same take together: the U87 and RE20 into the SSL Duality δelta, the Coles 4038 into the Neve 1073 DPX. Listen back level-matched. You are comparing each mic together with its preamp.',units:[
+  ['m87','Neumann U87 Ai','condenser','Which pattern (cardioid, omni, figure-8)? Pad or high-pass used?'],
+  ['m4038','Coles 4038','ribbon · figure-8','What did the rear lobe pick up? How much gain, and was noise acceptable? Proximity effect?'],
+  ['mre20','Electro-Voice RE20','end-address dynamic','Bass roll-off switch used? How did it behave as the singer moved?']],
+  uf:p=>[
+   {id:p+'_pos',l:'Distance, angle, pattern / switches',k:'text'},
+   {id:p+'_gain',l:'Gain on the preamp (dB)',k:'text',mono:1},
+   {id:p+'_heard',l:'What you heard',h:'Low end, presence (2–5 kHz), air (10 kHz+), sibilance, plosives, room, fit with the backing track',k:'area'},
+   {id:p+'_score',l:'Score',k:'scale'}],
+  f:[
+  {id:'mic_choice',l:'Microphone chosen',k:'sel',o:['U87 Ai','Coles 4038','RE20']},
+  {id:'mic_why',l:'Why this microphone?',h:'Link it to the voice, the song and the arrangement. Refer to transient response, frequency response and timbre.',k:'area'},
+  {id:'mic_others',l:'What did the other two do worse (or better) for this singer?',k:'area'},
+  {id:'mic_change',l:'Would a different vocalist or song change your choice? Give an example.',k:'area'}]},
+ {t:'Preamp choice',intro:'The U87 through three preamps: the SSL Duality δelta (the Part 1 take), the Neve 1073 DPX and the Avalon VT-737sp, with EQ and compression bypassed. Match levels before judging.',units:[
+  ['pssl','SSL Duality δelta','console','VHD drive used?'],
+  ['pneve','AMS Neve 1073 DPX','transformer, class A','Did pushing the input add colour?'],
+  ['pava','Avalon VT-737sp','tube','Did you use its EQ or opto compressor?']],
+  uf:p=>[
+   {id:p+'_gain',l:'Gain setting',k:'text',mono:1},
+   {id:p+'_heard',l:'Character',h:'Noise floor, low-mid weight, top end, colour when pushed',k:'area'},
+   {id:p+'_onboard',l:'Onboard EQ, HPF or compressor used?',k:'text'},
+   {id:p+'_score',l:'Score',k:'scale'}],
+  f:[
+  {id:'pre_choice',l:'Preamp chosen',k:'sel',o:['SSL Duality δelta','Neve 1073 DPX','Avalon VT-737sp']},
+  {id:'pre_why',l:'Why does it suit this mic and this voice?',h:'Does a warm preamp help or hurt a dark ribbon?',k:'area'},
+  {id:'pre_print',l:'Did you print EQ or compression on the way in, or keep it for the mix? Why?',k:'area'}]},
+ {t:'Compression and EQ',intro:'Compressors shape tone as well as dynamics. Note your settings, then explain what problem each one solved.',f:[
+  {id:'chain',l:'Chain order used',h:'e.g. Pultec → 1176 → LA-2A',k:'text'},
+  {unit:'UA 1176',sub:'FET',f:[
+   {id:'c_in',l:'Input',k:'text',mono:1},{id:'c_out',l:'Output',k:'text',mono:1},
+   {id:'c_att',l:'Attack (1–7)',k:'sel',o:['1','2','3','4','5','6','7'],mono:1},
+   {id:'c_rel',l:'Release (1–7)',k:'sel',o:['1','2','3','4','5','6','7'],mono:1},
+   {id:'c_ratio',l:'Ratio',k:'sel',o:['4:1','8:1','12:1','20:1','All buttons'],mono:1},
+   {id:'c_gr',l:'Gain reduction (dB)',k:'text',mono:1},
+   {id:'c_src',l:'Used as',k:'sel',o:SRC}]},
+  {unit:'Teletronix LA-2A',sub:'optical',f:[
+   {id:'l_pr',l:'Peak reduction',k:'text',mono:1},{id:'l_gain',l:'Gain',k:'text',mono:1},
+   {id:'l_mode',l:'Mode',k:'sel',o:['Compress','Limit'],mono:1},
+   {id:'l_gr',l:'Gain reduction (dB)',k:'text',mono:1},
+   {id:'l_src',l:'Used as',k:'sel',o:SRC}]},
+  {unit:'Pultec EQP-1A',sub:'passive tube EQ',f:[
+   {id:'q_lf',l:'Low freq (Hz)',k:'sel',o:['20','30','60','100'],mono:1},
+   {id:'q_lb',l:'Low boost (0–10)',k:'text',mono:1},{id:'q_la',l:'Low atten (0–10)',k:'text',mono:1},
+   {id:'q_hf',l:'High freq (kHz)',k:'sel',o:['3','4','5','8','10','12','16'],mono:1},
+   {id:'q_bw',l:'Bandwidth',k:'text',mono:1},{id:'q_hb',l:'High boost (0–10)',k:'text',mono:1},
+   {id:'q_as',l:'Atten select (kHz)',k:'sel',o:['5','10','20'],mono:1},
+   {id:'q_ha',l:'High atten (0–10)',k:'text',mono:1},
+   {id:'q_pos',l:'Position',k:'sel',o:['Before compression','After compression'],mono:1},
+   {id:'q_src',l:'Used as',k:'sel',o:SRC}]},
+  {id:'comp_why',l:'Why the 1176, the LA-2A, or both?',h:'What did the fast FET attack do to peaks and consonants? What did the slower, program-dependent optical release do to the body of the vocal?',k:'area'},
+  {id:'eq_why',l:'What did the Pultec add or remove, and why there in the chain?',h:'Any boost and cut on the same band? Did EQ before compression change how the compressors reacted?',k:'area'},
+  {id:'sib',l:'How did you manage sibilance and plosives?',h:'At source (mic, angle, distance) or with processing?',k:'area'},
+  {id:'over',l:'Did you over-compress at any point? How did you know, and what did you change?',k:'area'}]},
+ {t:'Performance and session',f:[
+  {id:'approach',l:'Recording approach: full takes, section by section, or phrase by phrase? Why?',k:'area'},
+  {id:'takes',l:'Number of takes recorded',k:'text'},
+  {id:'phones',l:'What was in the headphone mix, and what did you change during the session?',k:'area'},
+  {id:'comms',l:'How did you communicate with the vocalist?',h:'Talkback, feedback between takes',k:'area'},
+  {id:'slow',l:'One thing that slowed the session down, and how you would avoid it next time',k:'area'}]},
+ {t:'Critical evaluation',intro:'250–400 words. Evaluate, don\'t describe: for each point, say what you did, why, what the result was, and how you know.',f:[
+  {id:'eval',l:'Your evaluation',h:'1. Compare your vocal with your reference track. 2. Which decision had the biggest effect on the sound, and why? 3. What would you change next time? 4. Support at least one point with a reference (manual, interview, book or a recording made with the same gear).',k:'area',big:1,words:1},
+  {sub:'Self-assessment',f:[
+   ['sa_mic','Mic choice and placement'],['sa_gain','Gain staging and preamp choice'],['sa_proc','EQ and compression decisions'],['sa_perf','Capturing the performance'],['sa_team','Teamwork and session organisation']
+  ].flatMap(([id,l])=>[{id,l,k:'scale'},{id:id+'_ev',l:'Evidence',k:'text',small:1}])}]}
+];
+
+const KEY='vocal-session-sheet-draft';
+let V={};
+try{V=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){V={}}
+const el=(t,a={},...c)=>{const e=document.createElement(t);for(const k in a){if(k==='class')e.className=a[k];else if(k==='text')e.textContent=a[k];else e.setAttribute(k,a[k])}c.forEach(x=>x&&e.append(x));return e};
+let saveT;
+function set(id,v){V[id]=v;clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(V));status('Draft saved on this device')}catch(e){status('Draft could not be saved on this device. Copy your answers before closing.')}},300)}
+function status(t){document.getElementById('status').textContent=t}
+const wc=s=>(s||'').trim().split(/\s+/).filter(Boolean).length;
+
+function field(f){
+  const w=el('div',{class:'field'+(f.mono?' mono':'')});
+  if(f.k==='checks'){
+    w.append(el('div',{class:'lbl',text:f.l}));const box=el('div',{class:'checks'});
+    const cur=V[f.id]||[];
+    f.o.forEach((o,i)=>{const id=f.id+'_'+i;const cb=el('input',{type:'checkbox',id});cb.checked=!!cur[i];
+      cb.addEventListener('change',()=>{const a=(V[f.id]||[]).slice();a[i]=cb.checked;set(f.id,a)});
+      box.append(el('label',{for:id},cb,el('span',{text:o})))});
+    w.append(box);return w}
+  if(f.k==='scale'){
+    w.append(el('div',{class:'lbl',text:f.l+' (1 weak – 5 strong)'}));const box=el('div',{class:'scale',role:'radiogroup','aria-label':f.l});
+    R5.forEach(n=>{const r=el('input',{type:'radio',name:f.id,id:f.id+'_'+n,value:n});r.checked=V[f.id]===n;
+      r.addEventListener('change',()=>set(f.id,n));box.append(el('label',{for:f.id+'_'+n},r,el('span',{text:n})))});
+    w.append(box);return w}
+  w.append(el('label',{for:f.id,text:f.l}));
+  if(f.h)w.append(el('div',{class:'hint',text:f.h}));
+  let inp;
+  if(f.k==='sel'){inp=el('select',{id:f.id});inp.append(el('option',{value:'',text:'—'}));f.o.forEach(o=>inp.append(el('option',{value:o,text:o})))}
+  else if(f.k==='area'){inp=el('textarea',{id:f.id});if(f.big)inp.style.minHeight='260px'}
+  else inp=el('input',{type:'text',id:f.id,autocomplete:'off'});
+  inp.value=V[f.id]||'';
+  w.append(inp);
+  let cnt;if(f.words){cnt=el('div',{class:'count'});const u=()=>cnt.textContent=wc(inp.value)+' words · aim for 250–400';u();inp.addEventListener('input',u);w.append(cnt)}
+  inp.addEventListener(f.k==='sel'?'change':'input',()=>set(f.id,inp.value));
+  return w}
+function block(f){
+  if(f.unit){const u=el('div',{class:'unit'});const h=el('h3',{text:f.unit});h.append(el('small',{text:f.sub}));u.append(h);const g=el('div',{class:'grid'});f.f.forEach(x=>g.append(field(x)));u.append(g);return u}
+  if(f.grid){const g=el('div',{class:'grid'});f.f.forEach(x=>g.append(field(x)));return g}
+  if(f.sub){const u=el('div',{class:'unit'});u.append(el('h3',{text:f.sub}));const g=el('div',{class:'grid'});f.f.forEach(x=>g.append(field(x)));u.append(g);return u}
+  return field(f)}
+const root=document.getElementById('form');root.style.cssText='display:flex;flex-direction:column;gap:22px';
+S.forEach((s,i)=>{
+  const sec=el('section');const st=el('div',{class:'strip'},el('span',{class:'n',text:String(i+1).padStart(2,'0')}),el('h2',{text:s.t}));
+  const b=el('div',{class:'body'});
+  if(s.intro)b.append(el('p',{class:'intro',text:s.intro}));
+  if(s.note)b.append(el('div',{class:'note',text:s.note}));
+  if(s.units)s.units.forEach(([p,n,sub,q])=>{const u=el('div',{class:'unit'});const h=el('h3',{text:n});h.append(el('small',{text:sub}));u.append(h,el('div',{class:'hint',text:q}));s.uf(p).forEach(x=>u.append(field(x)));b.append(u)});
+  s.f.forEach(f=>b.append(block(f)));
+  sec.append(st,b);root.append(sec)});
+
+// Export
+function flat(f,out){if(f.f)f.f.forEach(x=>flat(x,out));else out.push(f)}
+function lines(){
+  const L=[{h:1,t:'VOCAL SESSION SHEET'},{l:'Session',v:'Monday 2 November 2026, 9:30 am, Classroom'},{l:'Lecturer',v:'Nahuel Berneri'}];
+  S.forEach((s,i)=>{L.push({h:2,t:(i+1)+'. '+s.t});
+    if(s.units)s.units.forEach(([p,n])=>{L.push({h:3,t:n});s.uf(p).forEach(f=>L.push({l:f.l,v:val(f)}))});
+    s.f.forEach(b=>{if(b.unit||b.sub)L.push({h:3,t:b.unit||b.sub});const fs=[];flat(b,fs);fs.forEach(f=>L.push({l:f.l,v:val(f)}))})});
+  return L}
+function val(f){const v=V[f.id];if(f.k==='checks')return f.o.map((o,i)=>((v||[])[i]?'[x] ':'[ ] ')+o).join('\n');if(f.k==='scale')return v?v+'/5':'';return v||''}
+function asText(){return lines().map(x=>x.h===1?x.t:x.h===2?'\n== '+x.t.toUpperCase()+' ==':x.h===3?'\n-- '+x.t+' --':x.l+': '+(x.v||'—')).join('\n')}
+function fname(){const n=(V.vocalist||'').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-');return 'Vocal-Session'+(n?'-'+n:'')}
+
+document.getElementById('copyBtn').addEventListener('click',()=>{
+  const t=asText();
+  const fail=()=>{showFallback(t)};
+  try{navigator.clipboard.writeText(t).then(()=>status('Copied. Paste it into an email, Notes or a document.'),fail)}catch(e){fail()}});
+function showFallback(t){
+  let f=document.getElementById('fb');if(f)f.remove();
+  f=el('section',{id:'fb'});const b=el('div',{class:'body fallback'});
+  const ta=el('textarea',{id:'fbText',readonly:''});ta.value=t;
+  b.append(el('p',{class:'intro',text:'Copying is blocked here. The text below is selected: use your device\'s Copy, then paste it into an email, Notes or a document.'}),ta);
+  f.append(el('div',{class:'strip'},el('h2',{text:'Your answers'})),b);root.append(f);
+  ta.focus();ta.select();f.scrollIntoView({behavior:'smooth',block:'start'});status('Select and copy the text below.')}
+
+// Clear with in-page confirm
+const bar=document.getElementById('bar');
+document.getElementById('clearBtn').addEventListener('click',()=>{
+  if(document.getElementById('conf'))return;
+  const c=el('span',{class:'confirm',id:'conf'},el('span',{text:'Erase all answers?'}));
+  const y=el('button',{type:'button',text:'Erase'}),n=el('button',{type:'button',text:'Keep'});
+  y.onclick=()=>{V={};try{localStorage.removeItem(KEY)}catch(e){}location.reload()};n.onclick=()=>c.remove();
+  c.append(y,n);bar.append(c)});
+
+// PDF only where the viewer offers saving
+const pdfBtn=document.getElementById('pdfBtn');
+function latin(s){return String(s).replace(/δ/g,'delta').replace(/→/g,'->').replace(/[–—]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/…/g,'...').replace(/[^\x00-\xFF\n]/g,'?')}
+function buildPdf(){
+  const {jsPDF}=window.jspdf;const d=new jsPDF({unit:'mm',format:'a4'});
+  const M=16,W=210-2*M;let y=M;
+  const need=h=>{if(y+h>297-M){d.addPage();y=M}};
+  lines().forEach(x=>{
+    if(x.h){const sz=x.h===1?18:x.h===2?13:11;d.setFont('helvetica','bold');d.setFontSize(sz);need(sz*0.6+4);y+=x.h===1?0:x.h===2?5:2;d.text(latin(x.t),M,y);y+=sz*0.45+2;return}
+    d.setFont('helvetica','bold');d.setFontSize(9);const lw=d.splitTextToSize(latin(x.l),W);need(lw.length*4+4);d.text(lw,M,y);y+=lw.length*4;
+    d.setFont('helvetica','normal');d.setFontSize(10);const vw=d.splitTextToSize(latin(x.v||'-'),W);
+    vw.forEach(line=>{need(5);d.text(line,M,y);y+=4.6});y+=2.5});
+  return d.output('blob')}
+if(window.jspdf)pdfBtn.hidden=false;
+pdfBtn.addEventListener('click',()=>{
+  try{const blob=buildPdf();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fname()+'.pdf';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);status('PDF downloaded.')}
+  catch(e){status('PDF could not be created. Use Copy answers instead.')}});
+</script>
+</body>
+</html>
